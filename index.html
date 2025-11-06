@@ -3,636 +3,1586 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I.E.P Belén - Institución Educativa</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>I.E.P Belén - Formando líderes del mañana</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
         }
 
+        /* Navbar */
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: white !important;
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(44, 62, 80, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        .nav-link {
-            color: rgba(255,255,255,0.9) !important;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            margin: 0 5px;
+            position: relative;
+            padding: 0.5rem 0;
         }
 
-        .nav-link:hover {
-            color: white !important;
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary);
             transform: translateY(-2px);
         }
 
-        .dropdown-menu {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            border: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            margin-top: 0;
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
         }
 
-        .dropdown-item {
-            color: rgba(255,255,255,0.9);
-            padding: 10px 20px;
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
             transition: all 0.3s ease;
         }
 
-        .dropdown-item:hover {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding-left: 30px;
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
         }
 
-        .dropdown-toggle::after {
-            margin-left: 5px;
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            color: white;
-            padding: 80px 0;
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-        }
-
-        .hero-section h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .hero-section p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-        }
-
-        .hero-escudo {
-            width: 200px;
-            height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 60px 0 40px;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .card-img-top {
-            transform: scale(1.1);
-        }
-
-        .info-box {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 20px 0;
+            color: #fff;
             position: relative;
             overflow: hidden;
         }
 
-        .info-box::before {
+        .hero::before {
             content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient);
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--secondary);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .about-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            height: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1;
-            z-index: 0;
-        }
-
-        .info-box.mission::before {
-            background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop');
-        }
-
-        .info-box.vision::before {
-            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop');
-        }
-
-        .info-box > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .info-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        footer {
-            background: linear-gradient(rgba(44, 62, 80, 0.95), rgba(44, 62, 80, 0.95)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&h=600&fit=crop');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 40px 0 20px;
-            margin-top: 60px;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
             transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: var(--primary-color);
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: #fff;
+            font-size: 3rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+
+        /* News */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .news-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            margin: 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-date {
+            color: var(--secondary);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: #fff;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--primary);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        #sobre {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        #galeria {
+            background: #f8f9fa;
+        }
+
+        /* Tareas Section */
+        #tareas {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        #tareas .section-title {
+            color: #fff;
+        }
+
+        #tareas .section-title::after {
+            background: #fff;
+        }
+
+        .tareas-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2rem;
+        }
+
+        .profesor-panel,
+        .tareas-lista {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            color: #333;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--gradient);
+        }
+
+        .panel-header i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .panel-header h3 {
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .login-form h4,
+        .tarea-form h4 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .welcome-msg {
+            background: var(--gradient);
+            color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-msg i {
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
             transform: scale(1.05);
         }
 
-        .stats-section {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1600&h=800&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 60px 0;
+        .filtros-tareas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .stat-item {
-            text-align: center;
-            padding: 20px;
+        .filtros-tareas select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            transition: all 0.3s ease;
         }
 
-        .stat-number {
-            font-size: 3rem;
+        .filtros-tareas select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .lista-tareas-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .lista-tareas-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .lista-tareas-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .lista-tareas-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .tarea-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--secondary);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .tarea-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tarea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .tarea-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: bold;
-            color: white;
         }
 
-        .stat-label {
-            font-size: 1.1rem;
-            color: white;
+        .badge-materia {
+            background: var(--secondary);
+            color: #fff;
+        }
+
+        .badge-grado {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .tarea-delete {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 35px;
+        }
+
+        .tarea-delete:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .tarea-titulo {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .tarea-descripcion {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .tarea-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .tarea-fecha {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .tarea-profesor {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 968px) {
+            .tareas-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filtros-tareas {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" style="height: 45px; margin-right: 10px;"> I.E.P Belén
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                I.E.P Belén
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#inicio" id="navbarInicio" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Inicio
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarInicio">
-                            <li><a class="dropdown-item" href="#inicio">Bienvenida</a></li>
-                            <li><a class="dropdown-item" href="#inicio">Presentación</a></li>
-                            <li><a class="dropdown-item" href="#inicio">Historia</a></li>
-                            <li><a class="dropdown-item" href="#inicio">Valores</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#nosotros" id="navbarNosotros" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Nosotros
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarNosotros">
-                            <li><a class="dropdown-item" href="#nosotros">Misión y Visión</a></li>
-                            <li><a class="dropdown-item" href="#nosotros">Nuestro Equipo</a></li>
-                            <li><a class="dropdown-item" href="#nosotros">Infraestructura</a></li>
-                            <li><a class="dropdown-item" href="#nosotros">Certificaciones</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#servicios" id="navbarServicios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Servicios
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarServicios">
-                            <li><a class="dropdown-item" href="#servicios">Educación Primaria</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Educación Secundaria</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Laboratorio de Cómputo</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Deportes</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Arte y Cultura</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Tutoría</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#noticias" id="navbarNoticias" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Noticias
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarNoticias">
-                            <li><a class="dropdown-item" href="#noticias">Últimas Noticias</a></li>
-                            <li><a class="dropdown-item" href="#noticias">Eventos</a></li>
-                            <li><a class="dropdown-item" href="#noticias">Actividades</a></li>
-                            <li><a class="dropdown-item" href="#noticias">Comunicados</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#contacto" id="navbarContacto" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Contacto
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarContacto">
-                            <li><a class="dropdown-item" href="#contacto">Información de Contacto</a></li>
-                            <li><a class="dropdown-item" href="#contacto">Formulario</a></li>
-                            <li><a class="dropdown-item" href="#contacto">Ubicación</a></li>
-                            <li><a class="dropdown-item" href="#contacto">Horarios de Atención</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre">Acerca de</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#noticias">Noticias</a></li>
+                <li><a href="#tareas">Tareas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero-section">
-        <div class="container">
-            <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" class="hero-escudo">
+    <section id="inicio" class="hero">
+        <div class="hero-content">
             <h1>Bienvenidos a I.E.P Belén</h1>
             <p>Formando líderes del mañana con excelencia académica y valores</p>
-            <button class="btn btn-light btn-lg">Conoce Más</button>
+            <a href="#contacto" class="btn">Contáctanos</a>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
+    <!-- About Section -->
+    <section id="sobre">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="stat-label">Estudiantes</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="45">0</div>
-                        <div class="stat-label">Docentes</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="30">0</div>
-                        <div class="stat-label">Años de Experiencia</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="15">0</div>
-                        <div class="stat-label">Aulas</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Nosotros Section -->
-    <section id="nosotros" class="container">
-        <h2 class="section-title">Sobre Nosotros</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="info-box mission">
-                    <h4><i class="fas fa-flag"></i> Misión</h4>
+            <h2 class="section-title" data-aos="fade-up">Acerca de Nosotros</h2>
+            <div class="about-content">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Nuestra Misión</h3>
                     <p>Brindar una educación integral de calidad que promueva el desarrollo académico, personal y social de nuestros estudiantes, formando ciudadanos responsables y comprometidos con la sociedad.</p>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="info-box vision">
-                    <h4><i class="fas fa-eye"></i> Visión</h4>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-eye"></i>
+                    <h3>Nuestra Visión</h3>
                     <p>Ser reconocidos como una institución educativa líder en la formación de estudiantes competentes, creativos y con valores sólidos, capaces de enfrentar los desafíos del siglo XXI.</p>
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=400&fit=crop" alt="Estudiantes en clase" class="img-fluid rounded shadow" style="width: 100%; height: 350px; object-fit: cover;">
-            </div>
-        </div>
     </section>
 
-    <!-- Servicios Section -->
-    <section id="servicios" class="container">
-        <h2 class="section-title">Nuestros Servicios</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop" class="card-img-top" alt="Educación Primaria">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-book-reader"></i>
-                        </div>
-                        <h5 class="card-title">Educación Primaria</h5>
-                        <p class="card-text">Programa educativo integral para niños de 6 a 11 años con metodologías innovadoras y enfoque en valores.</p>
-                    </div>
+    <!-- Services Section -->
+    <section id="servicios">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-child"></i>
+                    <h3>Educación Primaria</h3>
+                    <p>Programa educativo integral para niños de 6 a 11 años con metodologías innovadoras y enfoque en valores.</p>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&h=600&fit=crop" class="card-img-top" alt="Educación Secundaria">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h5 class="card-title">Educación Secundaria</h5>
-                        <p class="card-text">Formación académica de excelencia preparando a los jóvenes para la educación superior y el mundo laboral.</p>
-                    </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Educación Secundaria</h3>
+                    <p>Formación académica de excelencia preparando a los jóvenes para la educación superior y el mundo laboral.</p>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=600&fit=crop" class="card-img-top" alt="Laboratorio de Cómputo">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-laptop"></i>
-                        </div>
-                        <h5 class="card-title">Laboratorio de Cómputo</h5>
-                        <p class="card-text">Equipamiento tecnológico moderno para desarrollar competencias digitales en nuestros estudiantes.</p>
-                    </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Tecnología Educativa</h3>
+                    <p>Equipamiento tecnológico moderno para desarrollar competencias digitales en nuestros estudiantes.</p>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1575278220902-cdf1a07a0421?w=800&h=600&fit=crop" class="card-img-top" alt="Deportes">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-futbol"></i>
-                        </div>
-                        <h5 class="card-title">Deportes</h5>
-                        <p class="card-text">Programas deportivos variados para promover la salud física y el trabajo en equipo.</p>
-                    </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-running"></i>
+                    <h3>Deportes</h3>
+                    <p>Programas deportivos variados para promover la salud física y el trabajo en equipo.</p>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop" class="card-img-top" alt="Arte y Cultura">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <h5 class="card-title">Arte y Cultura</h5>
-                        <p class="card-text">Talleres artísticos y culturales para desarrollar la creatividad y expresión de nuestros estudiantes.</p>
-                    </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-palette"></i>
+                    <h3>Arte y Cultura</h3>
+                    <p>Talleres artísticos y culturales para desarrollar la creatividad y expresión de nuestros estudiantes.</p>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop" class="card-img-top" alt="Tutoría">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h5 class="card-title">Tutoría</h5>
-                        <p class="card-text">Acompañamiento personalizado para el desarrollo integral y bienestar de cada estudiante.</p>
-                    </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-heart"></i>
+                    <h3>Apoyo Psicológico</h3>
+                    <p>Acompañamiento personalizado para el desarrollo integral y bienestar de cada estudiante.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Noticias Section -->
-    <section id="noticias" class="container">
-        <h2 class="section-title">Últimas Noticias</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=800&h=600&fit=crop" class="card-img-top" alt="Campeonato Deportivo">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-trophy"></i> Campeonato Deportivo</h5>
-                        <p class="card-text">Nuestros estudiantes obtuvieron el primer lugar en el campeonato interescolar de fútbol 2025.</p>
-                        <small class="text-muted">15 de Octubre, 2025</small>
+    <!-- Gallery Section -->
+    <section id="galeria">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Galería de Fotos</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=500" alt="Estudiantes">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop" class="card-img-top" alt="Matrícula Abierta">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-calendar-alt"></i> Matrícula Abierta</h5>
-                        <p class="card-text">Iniciamos el proceso de matrícula para el año académico 2026. ¡Inscribe a tu hijo hoy!</p>
-                        <small class="text-muted">10 de Octubre, 2025</small>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" alt="Aula">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop" class="card-img-top" alt="Feria de Ciencias">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-flask"></i> Feria de Ciencias</h5>
-                        <p class="card-text">Exitosa participación en la feria regional de ciencias con proyectos innovadores.</p>
-                        <small class="text-muted">5 de Octubre, 2025</small>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500" alt="Laboratorio">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500" alt="Deportes">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500" alt="Biblioteca">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500" alt="Actividades">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contacto Section -->
-    <section id="contacto" class="container mb-5">
-        <h2 class="section-title">Contáctanos</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop" alt="Edificio escolar" class="img-fluid rounded shadow mb-4" style="width: 100%; height: 300px; object-fit: cover;">
-                <div class="info-box">
-                    <h4><i class="fas fa-map-marker-alt"></i> Dirección</h4>
-                    <p>Av. Principal 123, Ventanilla, Callao, Perú</p>
-                    
-                    <h4 class="mt-4"><i class="fas fa-phone"></i> Teléfono</h4>
-                    <p>(01) 555-1234</p>
-                    
-                    <h4 class="mt-4"><i class="fas fa-envelope"></i> Email</h4>
-                    <p>contacto@iepbelen.edu.pe</p>
-                    
-                    <h4 class="mt-4"><i class="fas fa-clock"></i> Horario</h4>
-                    <p>Lunes a Viernes: 7:30 AM - 4:00 PM</p>
+    <!-- Lightbox -->
+    <div class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Imagen ampliada">
+    </div>
+
+    <!-- News Section -->
+    <section id="noticias">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Últimas Noticias</h2>
+            <div class="news-grid">
+                <div class="news-card" data-aos="flip-left" data-aos-delay="100">
+                    <span class="news-badge">Destacado</span>
+                    <div class="news-content">
+                        <p class="news-date">20 de Octubre, 2025</p>
+                        <h3>Campeonato Interescolar 2025</h3>
+                        <p>Nuestros estudiantes obtuvieron el primer lugar en el campeonato interescolar de fútbol 2025.</p>
+                    </div>
+                </div>
+                <div class="news-card" data-aos="flip-left" data-aos-delay="200">
+                    <span class="news-badge">Importante</span>
+                    <div class="news-content">
+                        <p class="news-date">15 de Octubre, 2025</p>
+                        <h3>Matrícula 2026 Abierta</h3>
+                        <p>Iniciamos el proceso de matrícula para el año académico 2026. ¡Inscribe a tu hijo hoy!</p>
+                    </div>
+                </div>
+                <div class="news-card" data-aos="flip-left" data-aos-delay="300">
+                    <span class="news-badge">Logros</span>
+                    <div class="news-content">
+                        <p class="news-date">10 de Octubre, 2025</p>
+                        <h3>Feria de Ciencias</h3>
+                        <p>Exitosa participación en la feria regional de ciencias con proyectos innovadores.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1596496181848-3091d4878b24?w=800&h=600&fit=crop" alt="Estudiantes colaborando" class="img-fluid rounded shadow mb-4" style="width: 100%; height: 300px; object-fit: cover;">
-                <div class="info-box">
-                    <h4>Envíanos un mensaje</h4>
-                    <form id="contactForm">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre completo" required>
+        </div>
+    </section>
+
+    <!-- Tareas Section -->
+    <section id="tareas">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Portal de Tareas</h2>
+            
+            <!-- Login/Panel de Profesor -->
+            <div class="tareas-container">
+                <div class="profesor-panel" data-aos="fade-right">
+                    <div class="panel-header">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h3>Panel de Profesor</h3>
+                    </div>
+                    
+                    <div id="loginForm" class="login-form">
+                        <h4>Iniciar Sesión</h4>
+                        <div class="form-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="profesorUsuario" placeholder="Usuario" required>
                         </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                        <div class="form-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="profesorPassword" placeholder="Contraseña" required>
                         </div>
-                        <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
+                        <button onclick="loginProfesor()" class="btn-submit">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </button>
+                    </div>
+
+                    <div id="profesorDashboard" class="profesor-dashboard" style="display: none;">
+                        <div class="welcome-msg">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="profesorNombre"></span>
+                            <button onclick="cerrarSesion()" class="btn-logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Enviar Mensaje</button>
-                    </form>
+                        
+                        <form id="tareaForm" class="tarea-form">
+                            <h4>Publicar Nueva Tarea</h4>
+                            
+                            <div class="form-group">
+                                <i class="fas fa-book"></i>
+                                <select id="materia" required>
+                                    <option value="">Seleccionar Materia</option>
+                                    <option value="Matemáticas">Matemáticas</option>
+                                    <option value="Comunicación">Comunicación</option>
+                                    <option value="Ciencias">Ciencias</option>
+                                    <option value="Historia">Historia</option>
+                                    <option value="Inglés">Inglés</option>
+                                    <option value="Arte">Arte</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <i class="fas fa-graduation-cap"></i>
+                                <select id="grado" required>
+                                    <option value="">Seleccionar Grado</option>
+                                    <option value="1° Primaria">1° Primaria</option>
+                                    <option value="2° Primaria">2° Primaria</option>
+                                    <option value="3° Primaria">3° Primaria</option>
+                                    <option value="4° Primaria">4° Primaria</option>
+                                    <option value="5° Primaria">5° Primaria</option>
+                                    <option value="6° Primaria">6° Primaria</option>
+                                    <option value="1° Secundaria">1° Secundaria</option>
+                                    <option value="2° Secundaria">2° Secundaria</option>
+                                    <option value="3° Secundaria">3° Secundaria</option>
+                                    <option value="4° Secundaria">4° Secundaria</option>
+                                    <option value="5° Secundaria">5° Secundaria</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <i class="fas fa-heading"></i>
+                                <input type="text" id="tituloTarea" placeholder="Título de la tarea" required>
+                            </div>
+
+                            <div class="form-group">
+                                <i class="fas fa-align-left"></i>
+                                <textarea id="descripcionTarea" placeholder="Descripción detallada de la tarea" rows="4" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="date" id="fechaEntrega" required>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-upload"></i> Publicar Tarea
+                            </button>
+                        </form>
+                    </div>
                 </div>
+
+                <div class="tareas-lista" data-aos="fade-left">
+                    <div class="panel-header">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Tareas Publicadas</h3>
+                    </div>
+                    
+                    <div class="filtros-tareas">
+                        <select id="filtroGrado" onchange="filtrarTareas()">
+                            <option value="">Todos los grados</option>
+                            <option value="1° Primaria">1° Primaria</option>
+                            <option value="2° Primaria">2° Primaria</option>
+                            <option value="3° Primaria">3° Primaria</option>
+                            <option value="4° Primaria">4° Primaria</option>
+                            <option value="5° Primaria">5° Primaria</option>
+                            <option value="6° Primaria">6° Primaria</option>
+                            <option value="1° Secundaria">1° Secundaria</option>
+                            <option value="2° Secundaria">2° Secundaria</option>
+                            <option value="3° Secundaria">3° Secundaria</option>
+                            <option value="4° Secundaria">4° Secundaria</option>
+                            <option value="5° Secundaria">5° Secundaria</option>
+                        </select>
+                        <select id="filtroMateria" onchange="filtrarTareas()">
+                            <option value="">Todas las materias</option>
+                            <option value="Matemáticas">Matemáticas</option>
+                            <option value="Comunicación">Comunicación</option>
+                            <option value="Ciencias">Ciencias</option>
+                            <option value="Historia">Historia</option>
+                            <option value="Inglés">Inglés</option>
+                            <option value="Arte">Arte</option>
+                        </select>
+                    </div>
+
+                    <div id="listaTareas" class="lista-tareas-container">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>No hay tareas publicadas aún</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Contáctanos</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item" data-aos="fade-right" data-aos-delay="100">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Dirección</h3>
+                            <p>Av. Principal 123, Ventanilla, Callao, Perú</p>
+                        </div>
+                    </div>
+                    <div class="contact-item" data-aos="fade-right" data-aos-delay="200">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Teléfono</h3>
+                            <p>(01) 555-1234</p>
+                        </div>
+                    </div>
+                    <div class="contact-item" data-aos="fade-right" data-aos-delay="300">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>contacto@iepbelen.edu.pe</p>
+                        </div>
+                    </div>
+                    <div class="contact-item" data-aos="fade-right" data-aos-delay="400">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Horario</h3>
+                            <p>Lunes a Viernes: 7:30 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" data-aos="fade-left">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" placeholder="Teléfono">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-comment"></i>
+                        <textarea placeholder="Mensaje"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" style="height: 80px; margin-bottom: 15px;">
-                    <h5>I.E.P Belén</h5>
-                    <p>Comprometidos con la excelencia educativa y el desarrollo integral de nuestros estudiantes.</p>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Enlaces Rápidos</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#inicio" class="text-white-50">Inicio</a></li>
-                        <li><a href="#nosotros" class="text-white-50">Nosotros</a></li>
-                        <li><a href="#servicios" class="text-white-50">Servicios</a></li>
-                        <li><a href="#contacto" class="text-white-50">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Síguenos</h5>
-                    <div class="social-icons">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-2x"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-2x"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-youtube fa-2x"></i></a>
-                    </div>
+        <div class="footer-content">
+            <div class="footer-section" data-aos="fade-up" data-aos-delay="100">
+                <h3>I.E.P Belén</h3>
+                <p>Formando líderes del mañana con excelencia académica y valores sólidos para enfrentar los desafíos del futuro.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
-            <hr class="bg-white">
-            <div class="text-center">
-                <p>&copy; 2025 I.E.P Belén. Todos los derechos reservados.</p>
+            <div class="footer-section" data-aos="fade-up" data-aos-delay="200">
+                <h3>Enlaces Rápidos</h3>
+                <p><a href="#inicio" style="color: #ecf0f1; text-decoration: none;">Inicio</a></p>
+                <p><a href="#sobre" style="color: #ecf0f1; text-decoration: none;">Acerca de</a></p>
+                <p><a href="#servicios" style="color: #ecf0f1; text-decoration: none;">Servicios</a></p>
+                <p><a href="#galeria" style="color: #ecf0f1; text-decoration: none;">Galería</a></p>
             </div>
+            <div class="footer-section" data-aos="fade-up" data-aos-delay="300">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ventanilla</p>
+                <p><i class="fas fa-phone"></i> (01) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> contacto@iepbelen.edu.pe</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 I.E.P Belén. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Smooth scrolling para los enlaces del navbar
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const offsetTop = target.offsetTop - 70;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
                     });
-                    // Cerrar el navbar en móvil después de hacer clic
-                    const navbarCollapse = document.querySelector('.navbar-collapse');
-                    if (navbarCollapse.classList.contains('show')) {
-                        bootstrap.Collapse.getInstance(navbarCollapse).hide();
-                    }
                 }
             });
         });
 
-        // Animación de números en las estadísticas
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
+        // Lightbox functionality
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        const galleryItems = document.querySelectorAll('.gallery-item');
 
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    element.textContent = Math.floor(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = target;
-                }
-            };
-
-            updateCounter();
-        }
-
-        // Observer para animar cuando los números sean visibles
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.stat-number').forEach(counter => {
-            observer.observe(counter);
         });
 
-        // Manejo del formulario de contacto
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Form submission
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
-            this.reset();
+            alert('¡Gracias por contactarnos! Te responderemos pronto.');
+            contactForm.reset();
         });
 
-        // Resaltar enlace activo del navbar al hacer scroll
+        // Add active state to nav links on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
         window.addEventListener('scroll', () => {
             let current = '';
-            const sections = document.querySelectorAll('section[id]');
-            
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 100) {
+                if (window.pageYOffset >= sectionTop - 200) {
                     current = section.getAttribute('id');
                 }
             });
 
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = '#3498db';
                 }
             });
         });
+
+        // Sistema de Tareas
+        let tareasData = [];
+        let sesionActiva = false;
+        let profesorActual = '';
+
+        // Credenciales de profesores (en producción esto debería estar en un backend seguro)
+        const profesores = {
+            'prof.matematicas': { password: 'mate123', nombre: 'Prof. Juan Pérez' },
+            'prof.comunicacion': { password: 'comu123', nombre: 'Prof. María García' },
+            'prof.ciencias': { password: 'cien123', nombre: 'Prof. Carlos López' }
+        };
+
+        function loginProfesor() {
+            const usuario = document.getElementById('profesorUsuario').value;
+            const password = document.getElementById('profesorPassword').value;
+
+            if (profesores[usuario] && profesores[usuario].password === password) {
+                sesionActiva = true;
+                profesorActual = profesores[usuario].nombre;
+                document.getElementById('profesorNombre').textContent = profesorActual;
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('profesorDashboard').style.display = 'block';
+            } else {
+                alert('Usuario o contraseña incorrectos');
+            }
+        }
+
+        function cerrarSesion() {
+            sesionActiva = false;
+            profesorActual = '';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('profesorDashboard').style.display = 'none';
+            document.getElementById('profesorUsuario').value = '';
+            document.getElementById('profesorPassword').value = '';
+        }
+
+        // Manejo del formulario de tareas
+        document.getElementById('tareaForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!sesionActiva) {
+                alert('Debes iniciar sesión para publicar tareas');
+                return;
+            }
+
+            const tarea = {
+                id: Date.now(),
+                materia: document.getElementById('materia').value,
+                grado: document.getElementById('grado').value,
+                titulo: document.getElementById('tituloTarea').value,
+                descripcion: document.getElementById('descripcionTarea').value,
+                fechaEntrega: document.getElementById('fechaEntrega').value,
+                profesor: profesorActual,
+                fechaPublicacion: new Date().toLocaleDateString('es-PE')
+            };
+
+            tareasData.push(tarea);
+            mostrarTareas();
+            document.getElementById('tareaForm').reset();
+            alert('¡Tarea publicada exitosamente!');
+        });
+
+        function mostrarTareas() {
+            const listaTareas = document.getElementById('listaTareas');
+            
+            if (tareasData.length === 0) {
+                listaTareas.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>No hay tareas publicadas aún</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listaTareas.innerHTML = tareasData.map(tarea => `
+                <div class="tarea-card" data-grado="${tarea.grado}" data-materia="${tarea.materia}">
+                    <div class="tarea-header">
+                        <div class="tarea-badges">
+                            <span class="badge badge-materia">${tarea.materia}</span>
+                            <span class="badge badge-grado">${tarea.grado}</span>
+                        </div>
+                        ${sesionActiva ? `<button class="tarea-delete" onclick="eliminarTarea(${tarea.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>` : ''}
+                    </div>
+                    <h4 class="tarea-titulo">${tarea.titulo}</h4>
+                    <p class="tarea-descripcion">${tarea.descripcion}</p>
+                    <div class="tarea-footer">
+                        <div class="tarea-fecha">
+                            <i class="fas fa-calendar-alt"></i>
+                            Entrega: ${new Date(tarea.fechaEntrega).toLocaleDateString('es-PE', { 
+                                day: 'numeric', 
+                                month: 'long', 
+                                year: 'numeric' 
+                            })}
+                        </div>
+                        <div class="tarea-profesor">
+                            <i class="fas fa-user"></i> ${tarea.profesor}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function eliminarTarea(id) {
+            if (!sesionActiva) {
+                alert('Debes iniciar sesión para eliminar tareas');
+                return;
+            }
+
+            if (confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
+                tareasData = tareasData.filter(tarea => tarea.id !== id);
+                mostrarTareas();
+            }
+        }
+
+        function filtrarTareas() {
+            const filtroGrado = document.getElementById('filtroGrado').value;
+            const filtroMateria = document.getElementById('filtroMateria').value;
+            const tareasCards = document.querySelectorAll('.tarea-card');
+
+            tareasCards.forEach(card => {
+                const gradoCard = card.getAttribute('data-grado');
+                const materiaCard = card.getAttribute('data-materia');
+                
+                const cumpleFiltroGrado = !filtroGrado || gradoCard === filtroGrado;
+                const cumpleFiltroMateria = !filtroMateria || materiaCard === filtroMateria;
+
+                if (cumpleFiltroGrado && cumpleFiltroMateria) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Inicializar con algunas tareas de ejemplo
+        tareasData = [
+            {
+                id: 1,
+                materia: 'Matemáticas',
+                grado: '5° Primaria',
+                titulo: 'Resolver ejercicios de fracciones',
+                descripcion: 'Completar las páginas 45-47 del libro de matemáticas. Enfocarse en suma y resta de fracciones con diferentes denominadores.',
+                fechaEntrega: '2025-11-15',
+                profesor: 'Prof. Juan Pérez',
+                fechaPublicacion: '06/11/2025'
+            },
+            {
+                id: 2,
+                materia: 'Comunicación',
+                grado: '3° Secundaria',
+                titulo: 'Análisis literario',
+                descripcion: 'Leer el cuento "El Almohadón de Plumas" de Horacio Quiroga y realizar un análisis identificando los elementos narrativos principales.',
+                fechaEntrega: '2025-11-20',
+                profesor: 'Prof. María García',
+                fechaPublicacion: '06/11/2025'
+            },
+            {
+                id: 3,
+                materia: 'Ciencias',
+                grado: '2° Secundaria',
+                titulo: 'Informe sobre el Sistema Solar',
+                descripcion: 'Elaborar un informe detallado sobre los planetas del Sistema Solar, incluyendo características, tamaño y distancia al Sol. Incluir diagramas.',
+                fechaEntrega: '2025-11-18',
+                profesor: 'Prof. Carlos López',
+                fechaPublicacion: '06/11/2025'
+            }
+        ];
+
+        mostrarTareas();
     </script>
+</body>
+</html>
 </body>
 </html>
