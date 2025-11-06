@@ -896,6 +896,329 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+
+        .chatbot-button i {
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 380px;
+            height: 550px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-header {
+            background: var(--gradient);
+            color: #fff;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chatbot-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-title h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .chatbot-status {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-bot {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .message-user {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            line-height: 1.5;
+        }
+
+        .message-bot .message-content {
+            background: #fff;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .message-user .message-content {
+            background: var(--gradient);
+            color: #fff;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.3rem;
+            padding: 0 1rem;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            background: #fff;
+            border-radius: 15px;
+            width: fit-content;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary);
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .quick-question-btn {
+            background: #fff;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-question-btn:hover {
+            background: var(--secondary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .chatbot-input-area {
+            padding: 1rem;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .chatbot-send {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-send:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 120px);
+                right: 20px;
+                bottom: 90px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1300,6 +1623,63 @@
         </div>
     </footer>
 
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-button" onclick="toggleChatbot()">
+            <i class="fas fa-comments"></i>
+        </button>
+
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-title">
+                        <h4>Asistente Virtual</h4>
+                        <div class="chatbot-status">
+                            <i class="fas fa-circle" style="font-size: 0.6rem; color: #4ade80;"></i> En línea
+                        </div>
+                    </div>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message message-bot">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="message-content">
+                            ¡Hola! 👋 Soy el asistente virtual de I.E.P Belén. ¿En qué puedo ayudarte hoy?
+                        </div>
+                        <div class="quick-questions">
+                            <button class="quick-question-btn" onclick="sendQuickQuestion('¿Cuál es el horario de atención?')">Horario</button>
+                            <button class="quick-question-btn" onclick="sendQuickQuestion('¿Cómo puedo matricular a mi hijo?')">Matrícula</button>
+                            <button class="quick-question-btn" onclick="sendQuickQuestion('¿Qué servicios ofrecen?')">Servicios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chatbot-input-area">
+                <input 
+                    type="text" 
+                    class="chatbot-input" 
+                    id="chatbotInput" 
+                    placeholder="Escribe tu pregunta..."
+                    onkeypress="handleChatbotKeypress(event)"
+                >
+                <button class="chatbot-send" onclick="sendMessage()" id="chatbotSendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- AOS Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
@@ -1581,8 +1961,197 @@
         ];
 
         mostrarTareas();
+
+        // Chatbot functionality
+        const chatbotResponses = {
+            'horario': {
+                keywords: ['horario', 'hora', 'atencion', 'atención', 'abren', 'cierran', 'abierto'],
+                response: '📅 Nuestro horario de atención es de Lunes a Viernes de 7:30 AM a 4:00 PM. ¿Necesitas más información sobre algún otro tema?'
+            },
+            'matricula': {
+                keywords: ['matricula', 'matrícula', 'inscripcion', 'inscripción', 'inscribir', 'matricular'],
+                response: '📝 El proceso de matrícula para el año 2026 está abierto. Puedes acercarte a nuestras oficinas en Av. Principal 123, Ventanilla, o llamarnos al (01) 555-1234 para más información. ¿Te gustaría conocer los requisitos?'
+            },
+            'requisitos': {
+                keywords: ['requisitos', 'documentos', 'necesito', 'necesita'],
+                response: '📋 Los requisitos para la matrícula son: DNI del estudiante, partida de nacimiento, certificado de estudios del año anterior, 4 fotos tamaño carnet, ficha de matrícula firmada. ¿Algo más en lo que pueda ayudarte?'
+            },
+            'servicios': {
+                keywords: ['servicios', 'ofrecen', 'tienen', 'actividades', 'talleres'],
+                response: '🎓 Ofrecemos: Educación Primaria y Secundaria, Tecnología Educativa, Deportes, Arte y Cultura, Apoyo Psicológico. Todos nuestros programas están diseñados para el desarrollo integral de los estudiantes. ¿Quieres saber más sobre alguno?'
+            },
+            'costo': {
+                keywords: ['costo', 'precio', 'pension', 'pensión', 'pago', 'cuanto cuesta', 'cuánto'],
+                response: '💰 Para información sobre costos y pensiones, por favor comunícate directamente con nosotros al (01) 555-1234 o visita nuestras oficinas. Contamos con diferentes planes de pago. ¿Te ayudo con algo más?'
+            },
+            'ubicacion': {
+                keywords: ['donde', 'dónde', 'ubicacion', 'ubicación', 'direccion', 'dirección', 'llegar'],
+                response: '📍 Estamos ubicados en Av. Principal 123, Ventanilla, Callao, Perú. Puedes encontrarnos fácilmente cerca del centro de Ventanilla. ¿Necesitas indicaciones más específicas?'
+            },
+            'contacto': {
+                keywords: ['contacto', 'telefono', 'teléfono', 'email', 'correo', 'llamar', 'escribir'],
+                response: '📞 Puedes contactarnos por:\n• Teléfono: (01) 555-1234\n• Email: contacto@iepbelen.edu.pe\n• Dirección: Av. Principal 123, Ventanilla\n\n¿Hay algo específico que quieras consultar?'
+            },
+            'primaria': {
+                keywords: ['primaria', 'niños', 'niño'],
+                response: '👧👦 Nuestra educación primaria está diseñada para niños de 6 a 11 años con metodologías innovadoras y enfoque en valores. Desarrollamos habilidades académicas, sociales y emocionales. ¿Quieres conocer más detalles?'
+            },
+            'secundaria': {
+                keywords: ['secundaria', 'adolescentes', 'jovenes', 'jóvenes'],
+                response: '🎓 En secundaria preparamos a los jóvenes para la educación superior y el mundo laboral con formación académica de excelencia. Tenemos de 1° a 5° de secundaria. ¿Te interesa algún grado en particular?'
+            },
+            'deportes': {
+                keywords: ['deporte', 'deportes', 'futbol', 'fútbol', 'basket', 'voley'],
+                response: '⚽ Contamos con programas deportivos variados: fútbol, básquet, vóley y más. Promovemos la salud física y el trabajo en equipo. ¡Recientemente ganamos el campeonato interescolar! ¿Te gustaría más información?'
+            },
+            'tareas': {
+                keywords: ['tarea', 'tareas', 'deberes', 'trabajo'],
+                response: '📚 Puedes revisar las tareas publicadas en nuestra sección de "Portal de Tareas" en esta misma página. Los profesores actualizan las tareas regularmente. ¿Necesitas ayuda con algo más?'
+            },
+            'profesor': {
+                keywords: ['profesor', 'profesora', 'docente', 'maestro', 'maestra'],
+                response: '👨‍🏫 Contamos con profesores altamente calificados y comprometidos con la educación de nuestros estudiantes. Si eres profesor y quieres publicar tareas, usa el panel de profesor en la sección de Tareas. ¿Algo más?'
+            }
+        };
+
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            chatbotWindow.classList.toggle('active');
+            
+            if (chatbotWindow.classList.contains('active')) {
+                document.getElementById('chatbotInput').focus();
+            }
+        }
+
+        function handleChatbotKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendQuickQuestion(question) {
+            const input = document.getElementById('chatbotInput');
+            input.value = question;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate bot response delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = getBotResponse(message);
+                addMessage(response, 'bot');
+            }, 1000 + Math.random() * 1000);
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message message-${sender}`;
+            
+            const time = new Date().toLocaleTimeString('es-PE', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="message-content">${text}</div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div>
+                        <div class="message-content">${text}</div>
+                        <div class="message-time" style="text-align: right;">${time}</div>
+                    </div>
+                `;
+            }
+
+            // Remove typing indicator if exists
+            const typingIndicator = messagesContainer.querySelector('.typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message message-bot';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="typing-indicator active">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const typingIndicator = messagesContainer.querySelector('.message-bot:last-child');
+            if (typingIndicator && typingIndicator.querySelector('.typing-indicator')) {
+                typingIndicator.remove();
+            }
+        }
+
+        function getBotResponse(message) {
+            const messageLower = message.toLowerCase();
+            
+            // Check for greetings
+            if (messageLower.match(/\b(hola|buenos dias|buenas tardes|buenas noches|hey|hi|hello)\b/)) {
+                return '¡Hola! 👋 ¿En qué puedo ayudarte hoy? Puedo responder preguntas sobre matrícula, horarios, servicios, ubicación y más.';
+            }
+
+            // Check for thanks
+            if (messageLower.match(/\b(gracias|thank you|thanks|muchas gracias)\b/)) {
+                return '¡De nada! 😊 Estoy aquí para ayudarte. Si tienes más preguntas, no dudes en consultarme.';
+            }
+
+            // Check for goodbye
+            if (messageLower.match(/\b(adios|adiós|chao|hasta luego|bye|goodbye)\b/)) {
+                return '¡Hasta luego! 👋 Que tengas un excelente día. Recuerda que estoy aquí cuando me necesites.';
+            }
+
+            // Check predefined responses
+            for (const [key, data] of Object.entries(chatbotResponses)) {
+                for (const keyword of data.keywords) {
+                    if (messageLower.includes(keyword)) {
+                        return data.response;
+                    }
+                }
+            }
+
+            // Default response
+            return `Entiendo tu pregunta sobre "${message}". 🤔 Para información más específica, te recomiendo:\n\n• Llamarnos al (01) 555-1234\n• Escribirnos a contacto@iepbelen.edu.pe\n• Visitar nuestras oficinas en Av. Principal 123, Ventanilla\n\n¿Hay algo más en lo que pueda ayudarte?`;
+        }
     </script>
 </body>
 </html>
-</body>
 </html>
