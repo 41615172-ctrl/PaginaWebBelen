@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot - I.E.P Belén</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.user {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-avatar {
+            width: 35px;
+            height: 35px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .quick-options {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-btn {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            background: #5568d3;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 15px;
+            width: fit-content;
+        }
+
+        .typing-indicator.show {
+            display: block;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>🤖 ChatBot Belén</h1>
+            <p>Asistente Virtual - I.E.P Belén</p>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="bot-avatar">🤖</div>
+                <div class="message-content">
+                    ¡Hola! Soy el asistente virtual de I.E.P Belén. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-options">
+            <button class="quick-btn" onclick="sendQuickMessage('matricula')">📝 Matrícula</button>
+            <button class="quick-btn" onclick="sendQuickMessage('pensiones')">💰 Pensiones</button>
+            <button class="quick-btn" onclick="sendQuickMessage('ubicacion')">📍 Ubicación</button>
+            <button class="quick-btn" onclick="sendQuickMessage('actividades')">🎯 Actividades</button>
+            <button class="quick-btn" onclick="sendQuickMessage('director')">👨‍💼 Director</button>
+            <button class="quick-btn" onclick="sendQuickMessage('asesorias')">📚 Asesorías</button>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="userInput" placeholder="Escribe tu pregunta..." onkeypress="handleKeyPress(event)">
+            <button class="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        const responses = {
+            'matricula': {
+                keywords: ['matricula', 'inscripcion', 'inscribir', 'matricular', 'inscribirme'],
+                answer: `📝 <strong>Información sobre Matrículas:</strong><br><br>
+                        • <strong>Periodo de matrícula:</strong> Del 15 de octubre al 15 de diciembre de 2025<br>
+                        • <strong>Matrícula regular:</strong> S/ 300<br>
+                        • <strong>Matrícula con descuento:</strong> S/ 250 (hasta el 30 de noviembre)<br>
+                        • <strong>Requisitos:</strong><br>
+                        &nbsp;&nbsp;- DNI del estudiante y apoderado<br>
+                        &nbsp;&nbsp;- Partida de nacimiento<br>
+                        &nbsp;&nbsp;- 2 fotos tamaño carnet<br>
+                        &nbsp;&nbsp;- Certificado de estudios (para traslados)<br><br>
+                        📞 Para más información: (01) 555-1234`
+            },
+            'pensiones': {
+                keywords: ['pension', 'mensualidad', 'pago', 'cuota', 'costo', 'precio', 'cuanto cuesta'],
+                answer: `💰 <strong>Información sobre Pensiones:</strong><br><br>
+                        <strong>Nivel Primaria:</strong><br>
+                        • Pensión mensual: S/ 450<br>
+                        • Descuento por pago adelantado: 10%<br><br>
+                        <strong>Nivel Secundaria:</strong><br>
+                        • Pensión mensual: S/ 500<br>
+                        • Descuento por pago adelantado: 10%<br><br>
+                        • <strong>Formas de pago:</strong> Efectivo, transferencia bancaria, tarjeta<br>
+                        • <strong>Vencimiento:</strong> 5 de cada mes<br>
+                        • <strong>Descuento por hermanos:</strong> 15% en la segunda pensión<br><br>
+                        💳 Banco: BCP - Cuenta: 194-2345678-0-99`
+            },
+            'ubicacion': {
+                keywords: ['ubicacion', 'direccion', 'donde', 'como llegar', 'encuentro', 'queda'],
+                answer: `📍 <strong>Ubicación de I.E.P Belén:</strong><br><br>
+                        📌 <strong>Dirección:</strong> Av. Principal 123, Ventanilla, Callao, Perú<br><br>
+                        🕐 <strong>Horario de atención:</strong><br>
+                        • Lunes a Viernes: 7:30 AM - 4:00 PM<br><br>
+                        <strong>Referencias:</strong><br>
+                        • A 2 cuadras del Mercado Central de Ventanilla<br>
+                        • Frente al Parque Principal<br>
+                        • Cerca a la Municipalidad de Ventanilla<br><br>
+                        📞 Teléfono: (01) 555-1234<br>
+                        📧 Email: contacto@iepbelen.edu.pe`
+            },
+            'actividades': {
+                keywords: ['actividades', 'eventos', 'talleres', 'deportes', 'extracurricular', 'hacen'],
+                answer: `🎯 <strong>Actividades en I.E.P Belén:</strong><br><br>
+                        <strong>Deportes:</strong><br>
+                        • ⚽ Fútbol (lunes y miércoles)<br>
+                        • 🏀 Básquet (martes y jueves)<br>
+                        • 🏐 Vóley (viernes)<br><br>
+                        <strong>Talleres Artísticos:</strong><br>
+                        • 🎨 Arte y pintura<br>
+                        • 🎵 Música y canto<br>
+                        • 💃 Danza folclórica<br>
+                        • 🎭 Teatro<br><br>
+                        <strong>Talleres Académicos:</strong><br>
+                        • 💻 Computación e informática<br>
+                        • 🔬 Ciencias y robótica<br>
+                        • 📚 Club de lectura<br>
+                        • 🌍 Inglés avanzado<br><br>
+                        ¡Todas las actividades están incluidas en la pensión!`
+            },
+            'director': {
+                keywords: ['director', 'directora', 'quien dirige', 'encargado', 'autoridad'],
+                answer: `👨‍💼 <strong>Dirección de I.E.P Belén:</strong><br><br>
+                        <strong>Director General:</strong> Mg. Roberto Mendoza Flores<br><br>
+                        • Magíster en Gestión Educativa<br>
+                        • 20 años de experiencia en educación<br>
+                        • Especialista en pedagogía innovadora<br><br>
+                        <strong>Subdirectora Académica:</strong> Lic. María Elena Castro<br><br>
+                        📅 <strong>Horario de atención:</strong><br>
+                        • Lunes a Viernes: 9:00 AM - 12:00 PM<br>
+                        • Con cita previa al: (01) 555-1234<br><br>
+                        📧 Email dirección: direccion@iepbelen.edu.pe`
+            },
+            'asesorias': {
+                keywords: ['asesoria', 'tutorias', 'apoyo', 'reforzamiento', 'ayuda academica', 'clases'],
+                answer: `📚 <strong>Asesorías Académicas:</strong><br><br>
+                        Ofrecemos apoyo personalizado en:<br><br>
+                        <strong>Asesoría Psicopedagógica:</strong><br>
+                        • Atención personalizada<br>
+                        • Orientación vocacional<br>
+                        • Apoyo emocional<br><br>
+                        <strong>Reforzamiento Académico:</strong><br>
+                        • Matemáticas (martes y jueves 3-4 PM)<br>
+                        • Comunicación (lunes y miércoles 3-4 PM)<br>
+                        • Inglés (viernes 3-4 PM)<br>
+                        • Ciencias (miércoles 4-5 PM)<br><br>
+                        <strong>Horario:</strong> Lunes a viernes de 3:00 PM - 5:00 PM<br>
+                        <strong>Modalidad:</strong> Presencial y virtual<br>
+                        <strong>Costo:</strong> GRATUITO para alumnos regulares<br><br>
+                        📝 Inscripciones en coordinación académica`
+            },
+            'presidente': {
+                keywords: ['presidente', 'peru', 'actual', 'gobierno', 'mandatario'],
+                answer: `🇵🇪 <strong>Presidente del Perú:</strong><br><br>
+                        La presidenta actual del Perú es <strong>Dina Boluarte</strong>, quien asumió el cargo el 7 de diciembre de 2022.<br><br>
+                        Es la primera mujer en ocupar la presidencia del Perú.<br><br>
+                        <em>Nota: Esta información es correcta a la fecha actual (noviembre 2025)</em>`
+            },
+            'horario': {
+                keywords: ['horario', 'hora', 'clases', 'entrada', 'salida', 'que hora'],
+                answer: `🕐 <strong>Horarios de Clases:</strong><br><br>
+                        <strong>Nivel Primaria:</strong><br>
+                        • Entrada: 7:45 AM<br>
+                        • Salida: 1:30 PM<br><br>
+                        <strong>Nivel Secundaria:</strong><br>
+                        • Entrada: 7:45 AM<br>
+                        • Salida: 3:00 PM<br><br>
+                        • Recreo: 10:30 AM - 11:00 AM<br>
+                        • Almuerzo (secundaria): 1:00 PM - 1:45 PM`
+            },
+            'default': {
+                answer: `Lo siento, no tengo información específica sobre eso. Pero puedo ayudarte con:<br><br>
+                        📝 Información de matrícula<br>
+                        💰 Pensiones y pagos<br>
+                        📍 Ubicación del colegio<br>
+                        🎯 Actividades y talleres<br>
+                        👨‍💼 Información del director<br>
+                        📚 Asesorías académicas<br>
+                        🕐 Horarios de clases<br><br>
+                        ¿Sobre qué tema te gustaría saber más?`
+            }
+        };
+
+        function addMessage(message, isUser = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            if (!isUser) {
+                messageDiv.innerHTML = `
+                    <div class="bot-avatar">🤖</div>
+                    <div class="message-content">${message}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message-content">${message}</div>
+                `;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.innerHTML = `
+                <div class="bot-avatar">🤖</div>
+                <div class="typing-indicator show">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            typingDiv.id = 'typingIndicator';
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function getResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            for (const [key, data] of Object.entries(responses)) {
+                if (key === 'default') continue;
+                
+                for (const keyword of data.keywords) {
+                    if (lowerMessage.includes(keyword)) {
+                        return data.answer;
+                    }
+                }
+            }
+            
+            return responses.default.answer;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            addMessage(message, true);
+            input.value = '';
+            
+            showTyping();
+            
+            setTimeout(() => {
+                hideTyping();
+                const response = getResponse(message);
+                addMessage(response);
+            }, 1000);
+        }
+
+        function sendQuickMessage(topic) {
+            const messages = {
+                'matricula': '¿Cómo puedo matricularme?',
+                'pensiones': '¿Cuánto cuestan las pensiones?',
+                'ubicacion': '¿Dónde está ubicado el colegio?',
+                'actividades': '¿Qué actividades tienen?',
+                'director': '¿Quién es el director?',
+                'asesorias': '¿Tienen asesorías académicas?'
+            };
+            
+            const input = document.getElementById('userInput');
+            input.value = messages[topic];
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
