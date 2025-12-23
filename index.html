@@ -1,750 +1,775 @@
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I.E.P Belén - Institución Educativa</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>Colegio Excelencia Educativa</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
         }
 
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: white !important;
-        }
-
-        .nav-link {
-            color: rgba(255,255,255,0.9) !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 0 5px;
-        }
-
-        .nav-link:hover {
-            color: white !important;
-            transform: translateY(-2px);
-        }
-
-        .dropdown-menu {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            border: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            margin-top: 0;
-        }
-
-        .dropdown-item {
-            color: rgba(255,255,255,0.9);
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255,255,255,0.2);
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding-left: 30px;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .dropdown-toggle::after {
-            margin-left: 5px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            color: white;
-            padding: 80px 0;
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 3rem 0;
+        }
+
+        .nav-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-align: center;
         }
 
-        .hero-section h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
 
-        .hero-section p {
+        .nav-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
             font-size: 1.3rem;
-            margin-bottom: 30px;
         }
 
-        .hero-escudo {
-            width: 200px;
-            height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3));
-            animation: float 3s ease-in-out infinite;
+        .nav-card p {
+            color: #666;
+            font-size: 0.95rem;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 3rem 0;
         }
 
-        .floating-logo {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 80px;
-            height: auto;
-            z-index: 1000;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
-            animation: float 3s ease-in-out infinite;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .floating-logo:hover {
-            transform: scale(1.1) translateY(-5px);
-            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
-        }
-
-        @media (max-width: 768px) {
-            .floating-logo {
-                width: 60px;
-                bottom: 20px;
-                right: 20px;
-            }
-        }
-
-        .music-control {
-            position: fixed;
-            bottom: 120px;
-            right: 30px;
-            z-index: 1000;
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .music-control:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-
-        .music-control i {
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            }
-            50% {
-                box-shadow: 0 5px 15px rgba(52, 152, 219, 0.6);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .music-control {
-                width: 50px;
-                height: 50px;
-                bottom: 90px;
-                right: 20px;
-            }
-            .music-control i {
-                font-size: 1.2rem;
-            }
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 60px 0 40px;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            height: 100%;
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 12px;
             overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .card-img-top {
-            height: 200px;
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .card:hover .card-img-top {
+        .gallery-item:hover img {
             transform: scale(1.1);
         }
 
-        .info-box {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 20px 0;
-            position: relative;
-            overflow: hidden;
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
         }
 
-        .info-box::before {
-            content: '';
-            position: absolute;
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1;
-            z-index: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            overflow-y: auto;
         }
 
-        .info-box.mission::before {
-            background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop');
-        }
-
-        .info-box.vision::before {
-            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop');
-        }
-
-        .info-box > * {
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
             position: relative;
-            z-index: 1;
         }
 
-        .info-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            background: none;
+            border: none;
+        }
+
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-window {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            z-index: 999;
+            flex-direction: column;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background: #f0f0f0;
+            margin-right: auto;
+        }
+
+        .user-message {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .chatbot-input button {
+            padding: 0.8rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .teacher-portal {
+            background: #f8f9fa;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .portal-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .quick-questions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .quick-question {
+            padding: 0.5rem;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .quick-question:hover {
+            background: #e0e0e0;
         }
 
         footer {
-            background: linear-gradient(rgba(44, 62, 80, 0.95), rgba(44, 62, 80, 0.95)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&h=600&fit=crop');
-            background-size: cover;
-            background-position: center;
+            background: #333;
             color: white;
-            padding: 40px 0 20px;
-            margin-top: 60px;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-color);
-            transform: scale(1.05);
-        }
-
-        .stats-section {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1600&h=800&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 60px 0;
-        }
-
-        .stat-item {
             text-align: center;
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <header>
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" style="height: 45px; margin-right: 10px;"> I.E.P Belén
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#inicio" id="navbarInicio" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Inicio
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarInicio">
-                            <li><a class="dropdown-item" href="#inicio">Bienvenida</a></li>
-                            <li><a class="dropdown-item" href="#inicio">Presentación</a></li>
-                            <li><a class="dropdown-item" href="#inicio">Historia</a></li>
-                            <li><a class="dropdown-item" href="#inicio">Valores</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#nosotros" id="navbarNosotros" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Nosotros
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarNosotros">
-                            <li><a class="dropdown-item" href="#nosotros">Misión y Visión</a></li>
-                            <li><a class="dropdown-item" href="#nosotros">Nuestro Equipo</a></li>
-                            <li><a class="dropdown-item" href="#nosotros">Infraestructura</a></li>
-                            <li><a class="dropdown-item" href="#nosotros">Certificaciones</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#servicios" id="navbarServicios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Servicios
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarServicios">
-                            <li><a class="dropdown-item" href="#servicios">Educación Primaria</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Educación Secundaria</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Laboratorio de Cómputo</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Deportes</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Arte y Cultura</a></li>
-                            <li><a class="dropdown-item" href="#servicios">Tutoría</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#noticias" id="navbarNoticias" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Noticias
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarNoticias">
-                            <li><a class="dropdown-item" href="#noticias">Últimas Noticias</a></li>
-                            <li><a class="dropdown-item" href="#noticias">Eventos</a></li>
-                            <li><a class="dropdown-item" href="#noticias">Actividades</a></li>
-                            <li><a class="dropdown-item" href="#noticias">Comunicados</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#contacto" id="navbarContacto" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Contacto
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarContacto">
-                            <li><a class="dropdown-item" href="#contacto">Información de Contacto</a></li>
-                            <li><a class="dropdown-item" href="#contacto">Formulario</a></li>
-                            <li><a class="dropdown-item" href="#contacto">Ubicación</a></li>
-                            <li><a class="dropdown-item" href="#contacto">Horarios de Atención</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <h1>🎓 Colegio BELÉN</h1>
+            <p class="tagline">33 años formando líderes del mañana</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="nav-sections">
+            <div class="nav-card" onclick="showModal('mision')">
+                <h3>📜 Misión y Visión</h3>
+                <p>Conoce nuestro propósito y valores institucionales</p>
+            </div>
+            <div class="nav-card" onclick="showModal('nosotros')">
+                <h3>🏫 Quiénes Somos</h3>
+                <p>33 años de experiencia educativa de excelencia</p>
+            </div>
+            <div class="nav-card" onclick="showModal('talleres')">
+                <h3>🎨 Talleres y Programas</h3>
+                <p>Actividades extracurriculares para desarrollo integral</p>
+            </div>
+            <div class="nav-card" onclick="showModal('intercambio')">
+                <h3>✈️ Intercambios</h3>
+                <p>Programas internacionales de intercambio estudiantil</p>
+            </div>
+            <div class="nav-card" onclick="showModal('asesoria')">
+                <h3>📅 Asesorías</h3>
+                <p>Cronograma de asesorías académicas personalizadas</p>
             </div>
         </div>
-    </nav>
 
-    <!-- Logo Flotante -->
-    <a href="#inicio">
-        <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" class="floating-logo" title="Volver al inicio">
-    </a>
-
-    <!-- Control de Música -->
-    <div class="music-control" id="musicControl" title="Reproducir/Pausar música">
-        <i class="fas fa-music" id="musicIcon"></i>
+        <h2 style="text-align: center; margin: 3rem 0 2rem; color: #667eea;">📸 Galería Interactiva - Colegio BELÉN</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500" alt="Estudiantes">
+                <div class="gallery-overlay">
+                    <h4>Estudiantes BELÉN</h4>
+                    <p>Aprendizaje colaborativo</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=500" alt="Laboratorio">
+                <div class="gallery-overlay">
+                    <h4>Laboratorios modernos</h4>
+                    <p>Tecnología de punta</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" alt="Deportes">
+                <div class="gallery-overlay">
+                    <h4>Actividades deportivas</h4>
+                    <p>Desarrollo físico integral</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500" alt="Biblioteca">
+                <div class="gallery-overlay">
+                    <h4>Biblioteca BELÉN</h4>
+                    <p>Recursos educativos</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500" alt="Aulas">
+                <div class="gallery-overlay">
+                    <h4>Aulas equipadas</h4>
+                    <p>Espacios modernos de aprendizaje</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=500" alt="Graduación">
+                <div class="gallery-overlay">
+                    <h4>Ceremonia de graduación</h4>
+                    <p>Celebrando logros</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500" alt="Trabajo en equipo">
+                <div class="gallery-overlay">
+                    <h4>Trabajo colaborativo</h4>
+                    <p>Desarrollando habilidades</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500" alt="Campus">
+                <div class="gallery-overlay">
+                    <h4>Campus BELÉN</h4>
+                    <p>Instalaciones de primera</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=500" alt="Tecnología">
+                <div class="gallery-overlay">
+                    <h4>Sala de cómputo</h4>
+                    <p>Equipamiento tecnológico</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500" alt="Arte">
+                <div class="gallery-overlay">
+                    <h4>Taller de arte</h4>
+                    <p>Expresión creativa</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500" alt="Música">
+                <div class="gallery-overlay">
+                    <h4>Clase de música</h4>
+                    <p>Desarrollo artístico</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500" alt="Gimnasio">
+                <div class="gallery-overlay">
+                    <h4>Gimnasio BELÉN</h4>
+                    <p>Educación física</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?w=500" alt="Estudio">
+                <div class="gallery-overlay">
+                    <h4>Sala de estudio</h4>
+                    <p>Concentración y aprendizaje</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=500" alt="Ciencias">
+                <div class="gallery-overlay">
+                    <h4>Laboratorio de ciencias</h4>
+                    <p>Experimentación práctica</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=500" alt="Patio">
+                <div class="gallery-overlay">
+                    <h4>Áreas recreativas</h4>
+                    <p>Espacios de esparcimiento</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500" alt="Lectura">
+                <div class="gallery-overlay">
+                    <h4>Rincón de lectura</h4>
+                    <p>Fomentando la lectura</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Audio Element -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_d1718372d8.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Hero Section -->
-    <section id="inicio" class="hero-section">
+    <div class="teacher-portal">
         <div class="container">
-            <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" class="hero-escudo">
-            <h1>Bienvenidos a I.E.P Belén</h1>
-            <p>Formando líderes del mañana con excelencia académica y valores</p>
-            <button class="btn btn-light btn-lg">Conoce Más</button>
+            <div class="portal-box">
+                <h2 style="text-align: center; color: #667eea; margin-bottom: 2rem;">👨‍🏫 Portal de Tareas - BELÉN</h2>
+                <div class="form-group">
+                    <label>Tipo de Usuario:</label>
+                    <select id="userType">
+                        <option value="">Seleccione...</option>
+                        <option value="profesor">Profesor</option>
+                        <option value="alumno">Alumno</option>
+                        <option value="padre">Padre de Familia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Clave de Acceso:</label>
+                    <input type="password" id="accessKey" placeholder="Ingrese su clave">
+                </div>
+                <div id="profesorForm" style="display: none;">
+                    <div class="form-group">
+                        <label>Título de la Tarea:</label>
+                        <input type="text" id="taskTitle" placeholder="Ej: Tarea de Matemáticas">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <textarea id="taskDesc" rows="4" placeholder="Descripción detallada de la tarea"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Grado:</label>
+                        <select id="grade">
+                            <option>1° Grado</option>
+                            <option>2° Grado</option>
+                            <option>3° Grado</option>
+                            <option>4° Grado</option>
+                            <option>5° Grado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Entrega:</label>
+                        <input type="date" id="dueDate">
+                    </div>
+                    <button class="btn" onclick="submitTask()">📤 Publicar Tarea</button>
+                </div>
+                <button class="btn" onclick="login()" id="loginBtn">🔐 Ingresar</button>
+                <div id="taskList" style="margin-top: 2rem; display: none;"></div>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="stat-label">Estudiantes</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="45">0</div>
-                        <div class="stat-label">Docentes</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="30">0</div>
-                        <div class="stat-label">Años de Experiencia</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="15">0</div>
-                        <div class="stat-label">Aulas</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <button class="chatbot-button" onclick="toggleChat()">💬</button>
 
-    <!-- Nosotros Section -->
-    <section id="nosotros" class="container">
-        <h2 class="section-title">Sobre Nosotros</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="info-box mission">
-                    <h4><i class="fas fa-flag"></i> Misión</h4>
-                    <p>Brindar una educación integral de calidad que promueva el desarrollo académico, personal y social de nuestros estudiantes, formando ciudadanos responsables y comprometidos con la sociedad.</p>
-                </div>
+    <div class="chatbot-window" id="chatWindow">
+        <div class="chatbot-header">
+            <h3>Asistente Virtual</h3>
+            <button style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;" onclick="toggleChat()">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                ¡Hola! 👋 Soy el asistente virtual del Colegio BELÉN. ¿En qué puedo ayudarte?
             </div>
-            <div class="col-md-6">
-                <div class="info-box vision">
-                    <h4><i class="fas fa-eye"></i> Visión</h4>
-                    <p>Ser reconocidos como una institución educativa líder en la formación de estudiantes competentes, creativos y con valores sólidos, capaces de enfrentar los desafíos del siglo XXI.</p>
-                </div>
+            <div class="quick-questions">
+                <div class="quick-question" onclick="askQuestion('ubicacion')">📍 Ubicación</div>
+                <div class="quick-question" onclick="askQuestion('pensiones')">💰 Pensiones</div>
+                <div class="quick-question" onclick="askQuestion('director')">👔 Director</div>
+                <div class="quick-question" onclick="askQuestion('docentes')">👨‍🏫 Docentes</div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&h=400&fit=crop" alt="Estudiantes en clase" class="img-fluid rounded shadow" style="width: 100%; height: 350px; object-fit: cover;">
-            </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="handleChatKey(event)">
+            <button onclick="sendMessage()">➤</button>
         </div>
-    </section>
+    </div>
 
-    <!-- Servicios Section -->
-    <section id="servicios" class="container">
-        <h2 class="section-title">Nuestros Servicios</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop" class="card-img-top" alt="Educación Primaria">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-book-reader"></i>
-                        </div>
-                        <h5 class="card-title">Educación Primaria</h5>
-                        <p class="card-text">Programa educativo integral para niños de 6 a 11 años con metodologías innovadoras y enfoque en valores.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&h=600&fit=crop" class="card-img-top" alt="Educación Secundaria">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h5 class="card-title">Educación Secundaria</h5>
-                        <p class="card-text">Formación académica de excelencia preparando a los jóvenes para la educación superior y el mundo laboral.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&h=600&fit=crop" class="card-img-top" alt="Laboratorio de Cómputo">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-laptop"></i>
-                        </div>
-                        <h5 class="card-title">Laboratorio de Cómputo</h5>
-                        <p class="card-text">Equipamiento tecnológico moderno para desarrollar competencias digitales en nuestros estudiantes.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1575278220902-cdf1a07a0421?w=800&h=600&fit=crop" class="card-img-top" alt="Deportes">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-futbol"></i>
-                        </div>
-                        <h5 class="card-title">Deportes</h5>
-                        <p class="card-text">Programas deportivos variados para promover la salud física y el trabajo en equipo.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop" class="card-img-top" alt="Arte y Cultura">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <h5 class="card-title">Arte y Cultura</h5>
-                        <p class="card-text">Talleres artísticos y culturales para desarrollar la creatividad y expresión de nuestros estudiantes.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop" class="card-img-top" alt="Tutoría">
-                    <div class="card-body text-center">
-                        <div class="card-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h5 class="card-title">Tutoría</h5>
-                        <p class="card-text">Acompañamiento personalizado para el desarrollo integral y bienestar de cada estudiante.</p>
-                    </div>
-                </div>
-            </div>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <div id="modalBody"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- Noticias Section -->
-    <section id="noticias" class="container">
-        <h2 class="section-title">Últimas Noticias</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=800&h=600&fit=crop" class="card-img-top" alt="Campeonato Deportivo">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-trophy"></i> Campeonato Deportivo</h5>
-                        <p class="card-text">Nuestros estudiantes obtuvieron el primer lugar en el campeonato interescolar de fútbol 2025.</p>
-                        <small class="text-muted">15 de Octubre, 2025</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop" class="card-img-top" alt="Matrícula Abierta">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-calendar-alt"></i> Matrícula Abierta</h5>
-                        <p class="card-text">Iniciamos el proceso de matrícula para el año académico 2026. ¡Inscribe a tu hijo hoy!</p>
-                        <small class="text-muted">10 de Octubre, 2025</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop" class="card-img-top" alt="Feria de Ciencias">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-flask"></i> Feria de Ciencias</h5>
-                        <p class="card-text">Exitosa participación en la feria regional de ciencias con proyectos innovadores.</p>
-                        <small class="text-muted">5 de Octubre, 2025</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacto Section -->
-    <section id="contacto" class="container mb-5">
-        <h2 class="section-title">Contáctanos</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop" alt="Edificio escolar" class="img-fluid rounded shadow mb-4" style="width: 100%; height: 300px; object-fit: cover;">
-                <div class="info-box">
-                    <h4><i class="fas fa-map-marker-alt"></i> Dirección</h4>
-                    <p>Av. Principal 123, Ventanilla, Callao, Perú</p>
-                    
-                    <h4 class="mt-4"><i class="fas fa-phone"></i> Teléfono</h4>
-                    <p>(01) 555-1234</p>
-                    
-                    <h4 class="mt-4"><i class="fas fa-envelope"></i> Email</h4>
-                    <p>contacto@iepbelen.edu.pe</p>
-                    
-                    <h4 class="mt-4"><i class="fas fa-clock"></i> Horario</h4>
-                    <p>Lunes a Viernes: 7:30 AM - 4:00 PM</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1596496181848-3091d4878b24?w=800&h=600&fit=crop" alt="Estudiantes colaborando" class="img-fluid rounded shadow mb-4" style="width: 100%; height: 300px; object-fit: cover;">
-                <div class="info-box">
-                    <h4>Envíanos un mensaje</h4>
-                    <form id="contactForm">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre completo" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="Mensaje" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Enviar Mensaje</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <img src="https://i.postimg.cc/qqnSVv4J/escudo-belen.png" alt="Escudo I.E.P Belén" style="height: 80px; margin-bottom: 15px;">
-                    <h5>I.E.P Belén</h5>
-                    <p>Comprometidos con la excelencia educativa y el desarrollo integral de nuestros estudiantes.</p>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Enlaces Rápidos</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#inicio" class="text-white-50">Inicio</a></li>
-                        <li><a href="#nosotros" class="text-white-50">Nosotros</a></li>
-                        <li><a href="#servicios" class="text-white-50">Servicios</a></li>
-                        <li><a href="#contacto" class="text-white-50">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Síguenos</h5>
-                    <div class="social-icons">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-2x"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-2x"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-youtube fa-2x"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="bg-white">
-            <div class="text-center">
-                <p>&copy; 2025 I.E.P Belén. Todos los derechos reservados.</p>
-            </div>
+            <p>&copy; 2024 Colegio BELÉN. Todos los derechos reservados.</p>
+            <p>📞 (01) 555-0123 | 📧 info@colegiobelén.edu.pe</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Control de Música
-        const musicControl = document.getElementById('musicControl');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const musicIcon = document.getElementById('musicIcon');
-        let isPlaying = false;
+        const modalContent = {
+            mision: `
+                <h2>📜 Misión y Visión</h2>
+                <h3>Misión</h3>
+                <p>Formar estudiantes íntegros, críticos y creativos, con sólidos valores éticos y académicos, preparados para enfrentar los desafíos del siglo XXI y contribuir positivamente a la sociedad.</p>
+                <h3>Visión</h3>
+                <p>Ser reconocidos como una institución educativa líder en excelencia académica, innovación pedagógica y formación en valores, destacando por nuestro compromiso con el desarrollo integral de cada estudiante.</p>
+                <h3>Valores</h3>
+                <ul>
+                    <li>Respeto y tolerancia</li>
+                    <li>Responsabilidad y compromiso</li>
+                    <li>Honestidad e integridad</li>
+                    <li>Excelencia académica</li>
+                    <li>Solidaridad y trabajo en equipo</li>
+                </ul>
+            `,
+            nosotros: `
+                <h2>🏫 Quiénes Somos</h2>
+                <p><strong>33 años de trayectoria educativa</strong></p>
+                <p>Desde 1991, el Colegio BELÉN ha sido pionero en la formación integral de miles de estudiantes que hoy son profesionales exitosos y ciudadanos comprometidos.</p>
+                <h3>Nuestra Historia</h3>
+                <p>Fundado con la visión de ofrecer educación de calidad accesible, hemos crecido de una pequeña institución con 50 estudiantes a un referente educativo con más de 800 alumnos en todos los niveles.</p>
+                <h3>Logros Destacados</h3>
+                <ul>
+                    <li>🏆 Top 10 en rendimiento académico nacional (2020-2024)</li>
+                    <li>🌟 Acreditación internacional ISO 21001</li>
+                    <li>📚 98% de graduados ingresan a universidades prestigiosas</li>
+                    <li>🎖️ Múltiples premios en olimpiadas académicas y deportivas</li>
+                </ul>
+            `,
+            talleres: `
+                <h2>🎨 Talleres y Programas Extracurriculares</h2>
+                <h3>Talleres Artísticos</h3>
+                <ul>
+                    <li>🎵 Música y coro</li>
+                    <li>🎭 Teatro y expresión corporal</li>
+                    <li>🎨 Artes plásticas y pintura</li>
+                    <li>💃 Danza folklórica y contemporánea</li>
+                </ul>
+                <h3>Talleres Deportivos</h3>
+                <ul>
+                    <li>⚽ Fútbol y futsal</li>
+                    <li>🏀 Baloncesto</li>
+                    <li>🏐 Vóleibol</li>
+                    <li>🥋 Artes marciales</li>
+                    <li>♟️ Ajedrez</li>
+                </ul>
+                <h3>Talleres Académicos</h3>
+                <ul>
+                    <li>💻 Programación y robótica</li>
+                    <li>🔬 Club de ciencias</li>
+                    <li>📖 Club de lectura y debate</li>
+                    <li>🌍 Modelo de Naciones Unidas</li>
+                </ul>
+            `,
+            intercambio: `
+                <h2>✈️ Programas de Intercambio</h2>
+                <p>Ofrecemos oportunidades únicas para que nuestros estudiantes amplíen sus horizontes culturales y académicos.</p>
+                <h3>Destinos Disponibles</h3>
+                <ul>
+                    <li>🇪🇸 España - Barcelona (2-4 semanas)</li>
+                    <li>🇺🇸 Estados Unidos - California (3 semanas)</li>
+                    <li>🇫🇷 Francia - París (2 semanas)</li>
+                    <li>🇧🇷 Brasil - São Paulo (2 semanas)</li>
+                    <li>🇨🇱 Chile - Santiago (1-2 semanas)</li>
+                </ul>
+                <h3>Requisitos</h3>
+                <ul>
+                    <li>Estudiantes de 4° y 5° de secundaria</li>
+                    <li>Promedio académico mínimo de 14</li>
+                    <li>Nivel intermedio del idioma del país destino</li>
+                    <li>Carta de motivación</li>
+                </ul>
+                <p><strong>Próxima convocatoria:</strong> Marzo 2025</p>
+            `,
+            asesoria: `
+                <h2>📅 Cronograma de Asesorías Académicas</h2>
+                <h3>Asesorías Grupales</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <tr style="background: #667eea; color: white;">
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Día</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Horario</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Materia</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Lunes</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">3:00 - 4:00 PM</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Matemáticas</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Martes</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">3:00 - 4:00 PM</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Comunicación</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Miércoles</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">3:00 - 4:00 PM</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Ciencias</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Jueves</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">3:00 - 4:00 PM</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Inglés</td>
+                    </tr>
+                </table>
+                <h3>Asesorías Personalizadas</h3>
+                <p>Solicita tu cita personalizada con cualquier docente enviando un correo a: <strong>asesorias@colegiobelén.edu.pe</strong></p>
+                <p>Horarios disponibles: Lunes a Viernes, 2:00 PM - 5:00 PM</p>
+            `
+        };
 
-        // Configurar volumen
-        backgroundMusic.volume = 0.3;
+        const chatResponses = {
+            ubicacion: "📍 Nos encontramos en Av. Educación 456, San Isidro, Lima. Muy cerca del Óvalo Gutiérrez. Contamos con amplio estacionamiento y fácil acceso en transporte público.",
+            pensiones: "💰 Nuestras pensiones varían según el nivel:\n\n• Inicial: S/ 850 mensuales\n• Primaria: S/ 950 mensuales\n• Secundaria: S/ 1,050 mensuales\n\nMatrícula anual: S/ 500\n\nOfrecemos descuentos por hermanos y becas por mérito académico.",
+            director: "👔 Nuestro Director es el Dr. Carlos Mendoza Ruiz, con 20 años de experiencia en gestión educativa. Magíster en Administración Educativa por la PUCP y Doctor en Educación por la Universidad de Barcelona. Ha liderado exitosamente proyectos de innovación pedagógica reconocidos a nivel nacional.",
+            docentes: "👨‍🏫 Contamos con un equipo de 45 docentes altamente calificados:\n\n• 100% con título universitario\n• 70% con maestría o doctorado\n• 15 años de experiencia promedio\n• Capacitación continua en metodologías innovadoras\n\nDocentes especialistas en:\n- Matemáticas avanzadas\n- Ciencias experimentales\n- Lenguas extranjeras\n- Educación artística\n- Tecnología educativa"
+        };
 
-        musicControl.addEventListener('click', function() {
-            if (isPlaying) {
-                backgroundMusic.pause();
-                musicIcon.className = 'fas fa-music';
-                isPlaying = false;
-            } else {
-                backgroundMusic.play().catch(function(error) {
-                    console.log('Error al reproducir audio:', error);
-                });
-                musicIcon.className = 'fas fa-pause';
-                isPlaying = true;
-            }
-        });
+        let tasks = [];
 
-        // Smooth scrolling para los enlaces del navbar
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Cerrar el navbar en móvil después de hacer clic
-                    const navbarCollapse = document.querySelector('.navbar-collapse');
-                    if (navbarCollapse.classList.contains('show')) {
-                        bootstrap.Collapse.getInstance(navbarCollapse).hide();
-                    }
-                }
-            });
-        });
-
-        // Animación de números en las estadísticas
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    element.textContent = Math.floor(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = target;
-                }
-            };
-
-            updateCounter();
+        function showModal(section) {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('modalBody').innerHTML = modalContent[section];
         }
 
-        // Observer para animar cuando los números sean visibles
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
 
-        document.querySelectorAll('.stat-number').forEach(counter => {
-            observer.observe(counter);
-        });
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        }
 
-        // Manejo del formulario de contacto
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
-            this.reset();
-        });
+        function askQuestion(topic) {
+            addMessage(topic.charAt(0).toUpperCase() + topic.slice(1), 'user');
+            setTimeout(() => {
+                addMessage(chatResponses[topic], 'bot');
+            }, 500);
+        }
 
-        // Resaltar enlace activo del navbar al hacer scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section[id]');
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response, 'bot');
+                }, 500);
+            }
+        }
+
+        function handleChatKey(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const msg = message.toLowerCase();
+            if (msg.includes('ubicacion') || msg.includes('donde')) return chatResponses.ubicacion;
+            if (msg.includes('pension') || msg.includes('costo') || msg.includes('precio')) return chatResponses.pensiones;
+            if (msg.includes('director')) return chatResponses.director;
+            if (msg.includes('docente') || msg.includes('profesor')) return chatResponses.docentes;
+            if (msg.includes('horario')) return "⏰ Nuestro horario es de Lunes a Viernes de 8:00 AM a 3:00 PM. Los talleres extracurriculares se realizan de 3:00 PM a 5:00 PM.";
+            if (msg.includes('admision') || msg.includes('matricula')) return "📝 Las admisiones para el 2025 estarán abiertas desde enero. Puedes solicitar información en admisiones@colegiobelén.edu.pe o llamar al (01) 555-0123.";
+            return "Disculpa, no entendí tu pregunta. Puedes preguntarme sobre: ubicación, pensiones, director, docentes, horarios o admisiones. También puedes usar los botones rápidos.";
+        }
+
+        function login() {
+            const userType = document.getElementById('userType').value;
+            const key = document.getElementById('accessKey').value;
             
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
+            if (!userType || !key) {
+                alert('Por favor, complete todos los campos');
+                return;
+            }
 
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+            const validKeys = {
+                profesor: 'prof2024',
+                alumno: 'alum2024',
+                padre: 'padr2024'
+            };
+
+            if (key === validKeys[userType]) {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('taskList').style.display = 'block';
+                
+                if (userType === 'profesor') {
+                    document.getElementById('profesorForm').style.display = 'block';
+                } else {
+                    displayTasks();
                 }
-            });
-        });
-    </script>
-</body>
-</html>
+                
+                alert('✅ Acceso concedido');
+            } else {
+                alert('❌ Clave incorrecta');
+            }
+        }
+
+        function submitTask() {
+            const title = document.getElementById('taskTitle').value;
+            const desc = document.getElementById('taskDesc').value;
+            const grade = document.getElementById('
